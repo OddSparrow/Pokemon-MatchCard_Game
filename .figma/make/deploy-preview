@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+build_dir="$(mktemp -d "${TMPDIR:-/tmp}/pokemon-matchcard-preview.XXXXXX")"
+trap 'rm -rf "$build_dir"' EXIT
+
+cp index.html script.js styles.css "$build_dir/"
+cp -R img "$build_dir/img"
+
+figma make deploy-preview --build-dir "$build_dir"
